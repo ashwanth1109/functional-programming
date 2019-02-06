@@ -66,3 +66,11 @@ const sum1 = [1, 2, 3, 4, 5].reduce(reducer, 0);
 // pass in callback as an inline function
 const sum2 = [1, 2, 3, 4, 5].reduce((acc, curr) => acc + curr, 0);
 ```
+
+#### So, why should we use map and reduce?
+
+Code in a loop may affect variables defined before it or code that runs after it. By convention, map and reduce are functional.
+
+Map and reduce are elemental operations that form building blocks of operations such as filter etc. They can be transformed into complex elements without compromising code readability.
+
+#### Writing code declaratively, and not imperatively
