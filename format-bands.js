@@ -23,3 +23,28 @@ const bands = [
 //   Band { name: 'led zeppelin', country: 'CANADA', active: false },
 //   Band { name: 'coldplay', country: 'CANADA', active: true } ]
 
+// ------------------------------------------------------------
+// capitalize prototype function
+// ------------------------------------------------------------
+String.prototype.capitalize = function() {
+    return this.split(" ")
+        .map(str => str.charAt(0).toUpperCase() + str.slice(1))
+        .join(" ");
+};
+
+// ------------------------------------------------------------
+// formatBands function - imperative loop
+// ------------------------------------------------------------
+const formatBands = bands => {
+    for (const band of bands) {
+        band.country = "UK";
+        band.name = band.name.capitalize();
+    }
+};
+
+formatBands(bands);
+// console.log(bands);
+// O / P =>
+// [ Band { name: 'Beatles', country: 'UK', active: false },
+//   Band { name: 'Led Zeppelin', country: 'UK', active: false },
+//   Band { name: 'Coldplay', country: 'UK', active: true } ]
