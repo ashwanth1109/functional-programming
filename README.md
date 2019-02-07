@@ -23,14 +23,14 @@ Hence these functions are pure and follow the principle of immutability.
 ```javascript
 // Unfunctional function
 const increment = () => {
-  a += 1; // a is a global variable that is being mutated
+    a += 1; // a is a global variable that is being mutated
 };
 ```
 
 ```javascript
 // Functional function
 const increment = a => {
-  return a + 1;
+    return a + 1;
 };
 ```
 
@@ -74,3 +74,26 @@ Code in a loop may affect variables defined before it or code that runs after it
 Map and reduce are elemental operations that form building blocks of operations such as filter etc. They can be transformed into complex elements without compromising code readability.
 
 #### Writing code declaratively, and not imperatively
+
+```javascript
+//------------------------------------------------------------------------
+// IMPERATIVE PROGRAM
+//------------------------------------------------------------------------
+time = 5;
+carPositions = [1, 1, 1];
+
+while (time) {
+    // decrease time
+    time--;
+    console.log("\n");
+    for (let i = 0; i < carPositions.length; i++) {
+        // move car
+        if (Math.random() > 0.3) {
+            carPositions[i] += 1;
+        }
+        // draw car
+        let logStr = "";
+        for (let j = 0; j < carPositions[i]; j++) logStr += "-";
+        console.log(logStr);
+    }
+}
