@@ -105,11 +105,12 @@ We can make this program declarative by bundling pieces of code into functions.
 // ------------------------------------------------------------
 // FUNCTIONAL PROGRAM
 // ------------------------------------------------------------
-// moveCars method
+// moveCars method - no mutation on carPositions array
 const moveCars = carPositions => {
     return carPositions.map(x => (Math.random() > 0.3 ? x + 1 : x));
+    // map does not mutate original array, forEach does
 };
-// increaseTimeStep method
+// increaseTimeStep method - no state mutation as new object is returned
 const increaseTimeStep = state => {
     return {
         time: state.time - 1,
@@ -118,18 +119,20 @@ const increaseTimeStep = state => {
 };
 // outputCar method
 const outputCar = carPosition => {
+    // no mutation on carPosition value - returning a new string
     return "-".repeat(carPosition);
 };
-// draw method
+// draw method - i dont think this is a pure function as logging is a side effect, maybe?
+// but no mutation of carPositions array as map doesnt mutate as mentioned before
 const draw = carPositions => {
     console.log(carPositions.map(outputCar).join("\n"));
 };
 // race method
 const race = state => {
-    console.log(`Time: ${state.time}`);
+    console.log(`Time: ${state.time}`); // possible side effect
     draw(state.carPositions);
     if (state.time) {
-        race(increaseTimeStep(state));
+        race(increaseTimeStep(state)); // recursive call
     }
 };
 // START OF THE PIPELINE - pass in the initial state
@@ -138,3 +141,6 @@ race({
     carPositions: [1, 1, 1]
 });
 ```
+
+This program is functional as (1) there are no shared variables (2) functions take parameters (3) no mutation of values and newly created variables are directly returned
+
