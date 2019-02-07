@@ -97,3 +97,44 @@ while (time) {
         console.log(logStr);
     }
 }
+```
+
+We can make this program declarative by bundling pieces of code into functions.
+
+```javascript
+// ------------------------------------------------------------
+// FUNCTIONAL PROGRAM
+// ------------------------------------------------------------
+// moveCars method
+const moveCars = carPositions => {
+    return carPositions.map(x => (Math.random() > 0.3 ? x + 1 : x));
+};
+// increaseTimeStep method
+const increaseTimeStep = state => {
+    return {
+        time: state.time - 1,
+        carPositions: moveCars(state.carPositions)
+    };
+};
+// outputCar method
+const outputCar = carPosition => {
+    return "-".repeat(carPosition);
+};
+// draw method
+const draw = carPositions => {
+    console.log(carPositions.map(outputCar).join("\n"));
+};
+// race method
+const race = state => {
+    console.log(`Time: ${state.time}`);
+    draw(state.carPositions);
+    if (state.time) {
+        race(increaseTimeStep(state));
+    }
+};
+// START OF THE PIPELINE - pass in the initial state
+race({
+    time: 5,
+    carPositions: [1, 1, 1]
+});
+```
