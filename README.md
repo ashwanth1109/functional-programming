@@ -144,3 +144,56 @@ race({
 
 This program is functional as (1) there are no shared variables (2) functions take parameters (3) no mutation of values and newly created variables are directly returned
 
+#### Pipeline Architecture
+
+In this section, we want to try and convert the following imperative program into a functional one.
+
+For this problem, we have an array of bands. We want to transform some of the properties of these band objects.
+
+```javascript
+// ------------------------------------------------------------
+// class template for creating objects for bands
+// ------------------------------------------------------------
+class Band {
+    constructor(name, country, active = false) {
+        this.name = name;
+        this.country = country;
+        this.active = active;
+    }
+}
+// ------------------------------------------------------------
+// array of bands
+// ------------------------------------------------------------
+const bands = [
+    new Band("beatles", "CANADA"),
+    new Band("led zeppelin", "CANADA"),
+    new Band("coldplay", "CANADA", true)
+];
+```
+
+One data transformation that we plan for is to capitalize first letter of each word in the name property of the band objects. So, we extend the prototype of string with a method called capitalize.
+
+```javascript
+// ------------------------------------------------------------
+// capitalize prototype function
+// ------------------------------------------------------------
+String.prototype.capitalize = function() {
+    return this.split(" ")
+        .map(str => str.charAt(0).toUpperCase() + str.slice(1))
+        .join(" ");
+};
+```
+
+Now, we define the imperative approach to format this array of objects.
+
+```javascript
+// ------------------------------------------------------------
+// formatBands function - imperative loop
+// ------------------------------------------------------------
+const formatBands = bands => {
+    for (const band of bands) {
+        band.country = "UK";
+        band.name = band.name.capitalize();
+    }
+};
+```
